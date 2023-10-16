@@ -111,3 +111,42 @@ for i in tqdm(range(0,len(missing_t_uri),1)):
         time.sleep(1)
         continue
 f.close()
+
+#cotd..
+missing_t_uri=df.track_uri[df.Track_uri.isna()]
+missing_t_uri=missing_t_uri.unique()
+random.shuffle(missing_t_uri)
+
+f = open('data/track_features.csv','a')
+for i in tqdm(range(0,len(missing_t_uri),1)):
+    try:
+        track_features = sp.tracks(missing_t_uri[i:i+1])
+        for x in range(1):
+            track_pop=pd.DataFrame([missing_t_uri[i+x]])
+            track_pop['release_date']=track_features['tracks'][x]['album']['release_date']
+            track_pop['pop'] = track_features['tracks'][x]["popularity"]
+            csv_data = track_pop.to_csv(header=False,index=False)
+            f.write(csv_data)
+    except Exception as e:
+        r = open("extract_log.txt", "a")
+        r.write(datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")+": "+str(e)+'\n')
+        r.close()
+        time.sleep(1)
+        continue
+f.close()
+
+# removing unwanted data -- columns tio save space (help with pre poccessing)
+df.dropna(axis=0,inplace=True)
+
+df.isna().sum().sum()
+df.columns
+df.drop(columns=['Track_uri','Artist_uri','type','id','uri','track_href','analysis_url'],axis=1,inplace=True)
+df.drop(columns=['Track_uri','Artist_uri','type','id','uri','track_href','analysis_url'],axis=1,inplace=True)
+df.head(1)
+# data pre processing process
+df['Track_pop'] = df['Track_pop'].apply(lambda x: int(x/5))
+df['Artist_pop'] = df['Artist_pop'].apply(lambda x: int(x/5))
+df['Track_release_date'] = df['Track_release_date'].apply(lambda x: x.split('-')[0])
+df['Track_release_date']=df['Track_release_date'].astype('int16')
+df['Track_release_date'] = df['Track_release_date'].apply(lambda x: int(x/50))
+df.to_csv('data/1M_unique_processed_data.csv',index=False)
