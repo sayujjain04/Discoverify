@@ -78,3 +78,36 @@ def get_access_token():
 print(HEADERS)
 get_access_token()
 print(HEADERS)
+
+# 
+
+df=pd.read_csv('Data/1mV3.csv')
+artist_features=pd.read_csv('Data/artist_features.csv')
+audio_features=pd.read_csv('Data/audio_features.csv')
+track_features=pd.read_csv('Data/track_features.csv')
+
+df = pd.merge(df,audio_features, left_on = "track_uri", right_on= "id",how = 'outer')
+df = pd.merge(df,track_features, left_on = "track_uri", right_on= "Track_uri",how = 'outer')
+df = pd.merge(df,artist_features, left_on = "artist_uri", right_on= "Artist_uri",how = 'outer')
+
+#handling missing data
+df.isna().sum()
+
+missing_t_uri=df.track_uri[df.id.isna()]
+missing_t_uri=missing_t_uri.unique()
+random.shuffle(missing_t_uri)
+
+f = open('data/audio_features.csv','a')
+for i in tqdm(range(0,len(missing_t_uri),1)):
+    try:
+     track_feature = sp.audio_features(missing_t_uri[i:i+1])
+     track_df = pd.DataFrame(track_feature)
+     csv_data = track_df.to_csv(header=False,index=False)
+     f.write(csv_data)
+    except Exception as e:
+        r = open("extract_log0.txt", "a")
+        r.write(datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")+": "+str(e)+'\n')
+        r.close()
+        time.sleep(1)
+        continue
+f.close()
