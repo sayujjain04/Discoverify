@@ -98,3 +98,16 @@ spotify_client = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyOAuth(client
 playlist_id = "3dhjv8GHt3Uqo4h7T4nII5"
 
 shuffled_playlist = shuffle_playlist_by_bpm_and_danceability(playlist_id, spotify_client)
+
+
+def get_song_id_from_spotify_url(url):
+    # Split the URL by '/'
+    parts = url.split('/')
+    
+    # Get the last part of the split URL, which should contain the song ID
+    song_id = parts[-1]
+    
+    # If the song ID contains a query string (?si=...), remove it
+    song_id = song_id.split('?')[0]
+    
+    return song_id
