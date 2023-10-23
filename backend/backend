@@ -48,3 +48,53 @@ def get_access_token():
 print(HEADERS)
 get_access_token()
 print(HEADERS)
+
+headers = {
+    'Authorization': 'Bearer {token}'.format(token=access_token)
+}
+
+# base URL of all Spotify API endpoints
+BASE_URL = 'https://api.spotify.com/v1/'
+
+# Track ID from the URI
+track_id = '01HMOGsamT08BvQ7XQqXBI'
+
+# actual GET request with proper header
+r = requests.get(BASE_URL + 'audio-features/' + track_id, headers=headers)
+
+r = r.json()
+r
+import random
+import spotipy
+
+def shuffle_playlist_by_bpm_and_danceability(playlist_id, spotify_client):
+
+    # Get the BPM and danceability of each song in the playlist.
+    playlist_songs = spotify_client.playlist_tracks(playlist_id)
+    song_features = []
+    for song in playlist_songs['items']:
+        song_features.append({
+            'id': song['track']['id'],
+            'bpm': song['track']['audio_features']['tempo'],
+            'danceability': song['track']['audio_features']['danceability']
+        })
+
+    # Sort the songs by BPM and danceability.
+    song_features.sort(key=lambda song: song['bpm'])
+    song_features.sort(key=lambda song: song['danceability'], reverse=True)
+
+    # # Shuffle the sorted playlist.
+    # random.shuffle(song_features)
+
+    # Output the shuffled playlist.
+    shuffled_playlist = []
+    for song in song_features:
+        shuffled_playlist.append(song['id'])
+
+    return shuffled_playlist
+
+spotify_client = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri))
+
+playlist_id = "3dhjv8GHt3Uqo4h7T4nII5"
+
+shuffled_playlist = shuffle_playlist_by_bpm_and_danceability(playlist_id, spotify_client)
