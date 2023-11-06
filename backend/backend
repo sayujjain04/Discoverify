@@ -64,50 +64,75 @@ r = requests.get(BASE_URL + 'audio-features/' + track_id, headers=headers)
 
 r = r.json()
 r
-import random
+
+
+
+# week 8-9
+
 import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+from sklearn.cluster import KMeans
+
+
 
 def shuffle_playlist_by_bpm_and_danceability(playlist_id, spotify_client):
+    # Retrieve the tracks and their audio features from the playlist
+    tracks = spotify_client.playlist_tracks(playlist_id)
+    print(len(tracks))
 
-    # Get the BPM and danceability of each song in the playlist.
-    playlist_songs = spotify_client.playlist_tracks(playlist_id)
-    song_features = []
-    for song in playlist_songs['items']:
-        song_features.append({
-            'id': song['track']['id'],
-            'bpm': song['track']['audio_features']['tempo'],
-            'danceability': song['track']['audio_features']['danceability']
-        })
+    # print(tracks["items"])
 
-    # Sort the songs by BPM and danceability.
-    song_features.sort(key=lambda song: song['bpm'])
-    song_features.sort(key=lambda song: song['danceability'], reverse=True)
-
-    # # Shuffle the sorted playlist.
-    # random.shuffle(song_features)
-
-    # Output the shuffled playlist.
-    shuffled_playlist = []
-    for song in song_features:
-        shuffled_playlist.append(song['id'])
-
-    return shuffled_playlist
-
-spotify_client = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri))
-
-playlist_id = "3dhjv8GHt3Uqo4h7T4nII5"
-
-shuffled_playlist = shuffle_playlist_by_bpm_and_danceability(playlist_id, spotify_client)
+    for i in tracks["items"]: # takes every track
+      print('{:40s}{}'.format(i['track']['name'], i['track']['id']))
 
 
-def get_song_id_from_spotify_url(url):
-    # Split the URL by '/'
-    parts = url.split('/')
-    
-    # Get the last part of the split URL, which should contain the song ID
-    song_id = parts[-1]
-    
-    # If the song ID contains a query string (?si=...), remove it
-    song_id = song_id.split('?')[0]
-    
-    return song_id
+    print()
+    track_ids = [track['track']['id'] for track in tracks['items']]
+    audio_features = spotify_client.audio_features(track_ids)
+
+    # Extract the relevant features for each track
+    features_list = []
+    for features in audio_features:
+        features_list.append([
+            features['energy'],
+            features['key'],
+            features['valence'],
+            features['tempo']
+    ])
+
+    for i in features_list:
+      print(i)
+
+    # Use k-means clustering to group similar songs
+    # Number of clusters (k) is arbitrary; you can adjust based on your preference
+    kmeans = KMeans(n_clusters=5, random_state=0).fit(features_list)
+    clusters = kmeans.labels_
+
+    print(clusters)
+
+    # Pair track IDs with their clusters and sort by cluster
+    # Then, within each cluster, sort by tempo
+    sorted_tracks = sorted(zip(track_ids, clusters, features_list), key=lambda x: (x[1], x[2][3]))
+
+    # Extract the sorted track IDs
+    sorted_track_ids = [track[0] for track in sorted_tracks]
+
+    print(len(sorted_tracks) == len(tracks))
+    print(len(sorted_tracks), len(tracks))
+    return sorted_track_ids
+
+# Setup Spotify client with your token
+with open("spotify_token.txt", "r") as f:
+    token = f.read().strip()
+
+spotify_client = spotipy.Spotify(auth=token)
+
+# Get the sorted playlist
+playlist_id = "1mSPjuL0spUjUkeK965epf"
+sorted_playlist = shuffle_playlist_by_bpm_and_danceability(playlist_id, spotify_client)   # so this basically pushes
+print()
+
+for i in sorted_playlist:
+  print(i)
+
+
