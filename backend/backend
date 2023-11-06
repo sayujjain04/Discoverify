@@ -137,3 +137,37 @@ for i in sorted_playlist:
   print(i)
 
 
+
+# Setup Spotify client with your token
+with open("spotify_token.txt", "r") as f:
+    token = f.read().strip()
+
+spotify_client = spotipy.Spotify(auth=token)
+
+# Create a new playlist
+playlist_name = "My New Playlist"
+playlist_description = "This is my new playlist."
+
+playlist = spotify_client.user_playlist_create(spotify_client.current_user_uri(), playlist_name, playlist_description)
+
+# Get the playlist ID
+playlist_id = playlist['id']
+
+
+# get the track uri
+track_uris = []
+
+for i in sorted_playlist:
+  uri = "spotify:track:" + i
+  track_uris.append(uri)
+
+print("check track_uris:")
+for j in track_uris:
+  print(j)
+
+
+# Add the tracks to the playlist
+spotify_client.user_playlist_add_tracks(spotify_client.current_user_uri(), playlist_id, track_uris)
+
+# Shuffle the playlist
+spotify_client.user_playlist_shuffle_tracks(spotify_client.current_user_uri(), playlist_id)
