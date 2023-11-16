@@ -20,7 +20,7 @@ export default function Home() {
     background: 'linear-gradient(90deg, #00ff00, #00ff00)',
     WebkitBackgroundClip: 'text',
     backgroundClip: 'text',
-    animation: 'neon 1.5s ease-in-out infinite',
+    animation: 'neon 0.5s ease-in-out infinite',
     textShadow: '0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.5), 0 0 30px rgba(0, 255, 0, 0.5)',
   };
 
@@ -32,8 +32,8 @@ export default function Home() {
 
   return (
       (
-          <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundImage: 'url(/gifone.gif) ', 
-              backgroundSize: '100% 167%', backgroundRepeat: 'no-repeat', backgroundColor: 'black', minHeight: '100vh' }}>
+          <div className="min-h-screen flex flex-col items-center bg-cover justify-center" style={{ backgroundImage: 'url(/gifone.gif) ', 
+              backgroundRepeat: 'no-repeat', backgroundColor: 'black', minHeight: '100vh', backgroundPosition: 'center' }}>
             <div className="text-center mb-4">
               <h1 style={neonTextStyle}>Discoverify</h1>
             </div>
