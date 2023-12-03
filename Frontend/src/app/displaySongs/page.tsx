@@ -42,17 +42,27 @@ export default function Home() {
                 <div className="mb-4">
                   <input
                       type="text"
-                      placeholder="Playlist ID"
+                      placeholder="Username"
                       value={username}
                       onChange={e => setUsername(e.target.value)}
                       className="input input-bordered w-full max-w-xs mb-2"
                       required
                   />
                 </div>
-                <button type="submit" className="btn btn-wide">Login</button>
+                <div className="mb-4">
+                  <input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      className="input input-bordered w-full max-w-xs mb-2"
+                      required
+                  />
+                </div>
+                <button type="submit" className="btn btn-wide">Submit</button>
               </form>
             </div>
           </div>
-    )
+)
   );
 }
