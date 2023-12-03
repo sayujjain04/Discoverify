@@ -3,28 +3,47 @@ import { Black_Han_Sans } from "next/font/google";
 import {useState} from "react";
 
 export default function Home() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [playlistID, setPlaylistID] = useState('');
  
   const handleShuffle = (e: React.FormEvent) => {
-    e.preventDefault();
+    const apiUrlPost = 'http://localhost:5000/api/shufflepost';
+    const apiUrlGet = 'http://localhost:5000/api/shuffleget';
+    const postData = {ID : playlistID};
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+      },
+      body: JSON.stringify(postData),
+    };
+    fetch(apiUrlPost, requestOptions)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
     // Perform login logic (e.g., send credentials to server)
+    fetch(apiUrlGet)
+    .then(response => response.json())
+    .catch(error => {
+      // Handle errors
+      console.error('Error:', error);
+      alert('Error: ' + error.message);
+    });
   };
 
   const handleLogin = (e: React.FormEvent) => {
-    const apiUrl = 'http://localhost:5000/api/hello';
+    const apiUrl = 'http://localhost:5000/api/gentoken';
     fetch(apiUrl)
     .then(response => response.json())
-    .then(data => {
-      // Handle the response data
-      console.log('API Response:', data);
-      alert('API Response: ' + JSON.stringify(data));
+    .catch(error => {
+      // Handle errors
+      console.error('Error:', error);
+      alert('Error: ' + error.message);
     });
-    // .catch(error => {
-    //   // Handle errors
-    //   console.error('Error:', error);
-    //   alert('Error: ' + error.message);
-    // });
     // Perform login logic (e.g., send credentials to server)
   };
 
@@ -84,8 +103,8 @@ export default function Home() {
                   <input
                       type="text"
                       placeholder="Enter Playlist ID"
-                      value={username}
-                      onChange={e => setUsername(e.target.value)}
+                      value={playlistID}
+                      onChange={e => setPlaylistID(e.target.value)}
                       className="input input-bordered w-full max-w-xs mb-2"
                       required
                   />

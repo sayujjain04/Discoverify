@@ -35,7 +35,7 @@ def shuffle_and_add_to_queue(playlist_id, token):
         print("No active devices found")
 
 
-token = "BQByO391zlHMd9aXHx20Fyp7h1g1UwrPCs9INtiQh-zddDCaUX4Tq7mkamvbHvxM3LUuZRIkL7qvRMRzpJOtK-CScl6n2bzkajNG3TEV3-SjnAz8R6BtIY45-kijouEBq7h8m6VwmjL53b1FWci4c9wKUHCsI2sn3qNYqMEJX3qAJ8-fTftwWmrRJMR7HQ1qsXYuvjYHqzW-Uloutqrrrb58sQ"
-playlist_id = "1mSPjuL0spUjUkeK965epf"
+# token = "BQByO391zlHMd9aXHx20Fyp7h1g1UwrPCs9INtiQh-zddDCaUX4Tq7mkamvbHvxM3LUuZRIkL7qvRMRzpJOtK-CScl6n2bzkajNG3TEV3-SjnAz8R6BtIY45-kijouEBq7h8m6VwmjL53b1FWci4c9wKUHCsI2sn3qNYqMEJX3qAJ8-fTftwWmrRJMR7HQ1qsXYuvjYHqzW-Uloutqrrrb58sQ"
+# playlist_id = "1mSPjuL0spUjUkeK965epf"
 
-shuffle_and_add_to_queue(playlist_id, token)
+# shuffle_and_add_to_queue(playlist_id, token)
