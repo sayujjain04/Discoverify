@@ -19,12 +19,12 @@ export default function Home() {
       // Handle the response data
       console.log('API Response:', data);
       alert('API Response: ' + JSON.stringify(data));
-    })
-    .catch(error => {
-      // Handle errors
-      console.error('Error:', error);
-      alert('Error: ' + error.message);
     });
+    // .catch(error => {
+    //   // Handle errors
+    //   console.error('Error:', error);
+    //   alert('Error: ' + error.message);
+    // });
     // Perform login logic (e.g., send credentials to server)
   };
 
