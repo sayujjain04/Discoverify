@@ -12,7 +12,19 @@ export default function Home() {
   };
 
   const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+    const apiUrl = 'http://localhost:5000/api/hello';
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response data
+      console.log('API Response:', data);
+      alert('API Response: ' + JSON.stringify(data));
+    })
+    .catch(error => {
+      // Handle errors
+      console.error('Error:', error);
+      alert('Error: ' + error.message);
+    });
     // Perform login logic (e.g., send credentials to server)
   };
 
