@@ -5,6 +5,8 @@ import {useState} from "react";
 export default function Home() {
   const [token, setToken] = useState('');
   const [playlistID, setPlaylistID] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const handleShuffle = (e: React.FormEvent) => {
     e.preventDefault(); // Prevent default form submission
 
@@ -25,7 +27,9 @@ export default function Home() {
         }
         return response.json();
       })
-      .then(data => console.log(data))
+      .then(data => { 
+        return console.log(data);
+      })
       .catch(error => alert('Error: ' + error.message));
   };
 
@@ -85,8 +89,8 @@ export default function Home() {
     fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
-      alert('API Response: ' + JSON.stringify(data));
       setToken(data.token);
+      setLoggedIn(true);
     })
     .catch(error => {
       // Handle errors
@@ -142,8 +146,8 @@ export default function Home() {
               <h1 style={neonTextStyle}>Discoverify</h1>
             </div>
             <div className="text-center mb-4">
-                <button type="submit" className="btn btn-wide" style={spotifyButtonStyle} onClick={handleLogin}>
-                  Login
+                <button type="submit" className= {`btn btn-wide ${loggedIn ? "" : "btn-disable"}`} style={spotifyButtonStyle} onClick={handleLogin}>
+                {loggedIn ? 'Welcome' : 'Log in'}
                 </button>
             </div>
             <div className="w-2/5 h-1/5 flex items-center justify-center p-4 bg-base-100 shadow-xl rounded-lg">
@@ -158,7 +162,7 @@ export default function Home() {
                       required
                   />
                 </div>
-                <button type="submit" className="btn btn-wide">Shuffle</button>
+                <button type="submit" className= {`btn btn-wide ${loggedIn ? "" : "btn-disable"}`}>Shuffle</button>
               </form>
             </div>
           </div>
