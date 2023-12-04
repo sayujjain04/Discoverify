@@ -3,42 +3,91 @@ import { Black_Han_Sans } from "next/font/google";
 import {useState} from "react";
 
 export default function Home() {
+  const [token, setToken] = useState('');
   const [playlistID, setPlaylistID] = useState('');
- 
   const handleShuffle = (e: React.FormEvent) => {
-    const apiUrlPost = 'http://localhost:5000/api/shufflepost';
-    const apiUrlGet = 'http://localhost:5000/api/shuffleget';
-    const postData = {ID : playlistID};
+    e.preventDefault(); // Prevent default form submission
+
+    const apiUrlPost = 'http://localhost:5000/api/shuffle';
+    const postData = { ID: playlistID, Token: token };
     const requestOptions = {
       method: 'POST',
       headers: {
-        'Content-Type' : 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(postData),
     };
+
     fetch(apiUrlPost, requestOptions)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-    // Perform login logic (e.g., send credentials to server)
-    fetch(apiUrlGet)
-    .then(response => response.json())
-    .catch(error => {
-      // Handle errors
-      console.error('Error:', error);
-      alert('Error: ' + error.message);
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => console.log(data))
+      .catch(error => alert('Error: ' + error.message));
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+
+  // const handleShuffle = (e: React.FormEvent) => {
+  //   // Make post request to send playlist id to backend
+  //   const apiUrlPost = 'http://localhost:5000/api/shuffle';
+    
+  //   const postData = { ID: playlistID, Token: token };
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(postData),
+  //   };
+
+  //   console.log('Request Data:', JSON.stringify(postData));
+
+  //   fetch(apiUrlPost, requestOptions)
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! Status: ${response.status}`);
+  //       }
+  //       const contentType = response.headers.get('Content-Type');
+  //       if (!contentType || !contentType.includes('application/json')) {
+  //         throw new Error('Invalid content type in response');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => console.log(data))
+  //     .catch(error => alert('Error: ' + error.message));
+
+    // // Make post request to send playlist id to backend
+    // const apiUrlPost = 'http://localhost:5000/api/shuffle';
+    // const postData = {ID : playlistID};
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type' : 'application/json',
+    //   },
+    //   body: JSON.stringify(postData),
+    // };
+    // fetch(apiUrlPost, requestOptions)
+    // .then(response => {
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! Status: ${response.status}`);
+    //   }
+    //   return response.json();
+    // })
+    // .then(data => alert(data))
+    // .catch(error => alert('Error: ' + error));
+  // };
+
+  const handleLogin = () => {
     const apiUrl = 'http://localhost:5000/api/gentoken';
     fetch(apiUrl)
     .then(response => response.json())
+    .then(data => {
+      alert('API Response: ' + JSON.stringify(data));
+      setToken(data.token);
+    })
     .catch(error => {
       // Handle errors
       console.error('Error:', error);

@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from shuffle import shuffle_and_add_to_queue
 from flask_cors import CORS
 from flask import request
+import json
 import os
 import requests
 import base64
@@ -55,21 +56,29 @@ def gentoken():
     headers = {"Authorization": f"Basic {auth_header}"}
     response = requests.post(AUTH_URL, data=payload, headers=headers)
     token = response.json().get('access_token')
+    # playlistID = 'https://open.spotify.com/playlist/37i9dQZF1EQp9BVPsNVof1?si=sKLEJ_Y0SwexVBAwwkqbWA&pi=u-EbPhU1U5QkmI'
+    # shuffle_and_add_to_queue(playlistID, token)
     return jsonify({'token': token})
 
-@app.route('/api/shufflepost', methods=['POST'])
+@app.route('/callback', methods=['GET'])
+def callback():
+    return "Callback route"
+
+@app.route('/api/shuffle', methods=['POST'])
 def shufflepost():
-    playlistID = request.get_json()
-    # shuffle_and_add_to_queue(playlistID, token)
-    return jsonify({'ID':playlistID})
-
-@app.route('/api/shuffleget', methods=['GET'])
-def shuffleget():
+    data_dict = request.json
+    playlistID = data_dict['ID']
+    token = data_dict['Token']
     shuffle_and_add_to_queue(playlistID, token)
-    return jsonify({'I':"done"})
+    return jsonify({'ID': playlistID})
 
-token = ''
-playlistID = ''
+# def shufflepost():
+#     print("SharYA")
+#     data_dict = request.json
+#     playlistID = data_dict['ID']
+#     token = data_dict['Token']
+#     shuffle_and_add_to_queue(playlistID, token)
+#     return jsonify({'ID': playlistID})
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)
