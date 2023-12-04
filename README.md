@@ -1,6 +1,8 @@
 # Introduction
 In the vast realm of music streaming services, Spotify is a global leader in providing access to millions of songs. Music enthusiasts often discover new songs and artists by exploring songs that share characteristics with their favorites. As with many other music applications, Spotify users can create playlists of their favorite songs. 
+
 Our motivation behind the project: sometimes listening to a playlist in progression, it feels like songs are not transitioning well. And this is what Discovery helps us with. It works on an innovative algorithm that empowers Spotify users by creating personalized playlists with songs that share characteristics with the user's favorite tracks.
+
 functionality: Using the application, a user can log into their Spotify account and then input a link to a playlist, which is then shuffled and added to the users queue which users can use across all devices, without interruptions. 
 
 
