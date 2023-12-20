@@ -113,7 +113,7 @@ export default function Home() {
     textShadow: '0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.5), 0 0 30px rgba(0, 255, 0, 0.5)',
   };
 
-  const purpleTextStyle: React.CSSProperties = {
+  const whiteTextStyle: React.CSSProperties = {
     fontFamily: 'Arial, sans-serif', 
     color: 'transparent',
     textTransform: 'uppercase',
@@ -127,29 +127,45 @@ export default function Home() {
   };
 
   const formStyle: React.CSSProperties = {
-    backgroundColor: 'rgb(30 41 59)', 
+    backgroundColor: 'rgb(0 0 0)', 
     padding: '20px',
     borderRadius: '10px',
   };
 
   const spotifyButtonStyle: React.CSSProperties = {
-    backgroundColor: '#27272a',
-    color: '#fafafa',
-    border: 'none',
-    cursor: 'pointer',
+    fontFamily: 'Arial, sans-serif',
     fontSize: '1em',
     letterSpacing: '2px',
+    padding: '10px 20px',
+    color: 'rgba(255, 0, 255, 0.9)', // Set text color to a visible color
+    backgroundColor: 'transparent', // Set the background color to transparent
+    border: '2px solid transparent', // Set a transparent border
+    borderRadius: '5px',
     position: 'relative',
     overflow: 'hidden',
-    animation: 'neon 1s ease-in-out infinite, flash 1s linear infinite',
-  };
+    cursor: 'pointer',
+    transition: 'background-color 0.3s, border-color 0.3s, color 0.3s',
+    borderColor: 'rgba(148, 0, 211, 0.9)', // Purple glow color
+    boxShadow: '0 0 10px rgba(148, 0, 211, 0.9), 0 0 20px rgba(148, 0, 211, 0.9), 0 0 30px rgba(148, 0, 211, 0.9)',
+  };  
+  // const spotifyButtonStyle: React.CSSProperties = {
+  //   backgroundColor: '#27272a',
+  //   color: '#fafafa',
+  //   border: 'none',
+  //   cursor: 'pointer',
+  //   fontSize: '1em',
+  //   letterSpacing: '2px',
+  //   position: 'relative',
+  //   overflow: 'hidden',
+  //   animation: 'neon 1s ease-in-out infinite, flash 1s linear infinite',
+  // };
   
   return (
       (
           <div className="min-h-screen flex flex-col items-center bg-cover justify-center" style={{ backgroundImage: 'url(/coolbg.jpg) ', 
               backgroundRepeat: 'no-repeat', backgroundColor: 'black', minHeight: '100vh', backgroundPosition: 'center' }}>
             <div className="text-center mb-4">
-              <h1 style={purpleTextStyle}>Discoverify</h1>
+              <h1 style={whiteTextStyle}>Discoverify</h1>
             </div>
             <div className="text-center mb-4">
                 <button type="submit" className= {`btn btn-wide ${loggedIn ? "" : "btn-disable"}`} style={spotifyButtonStyle} onClick={handleLogin}>
@@ -168,7 +184,9 @@ export default function Home() {
                       required
                   />
                 </div>
-                <button type="submit" className= {`btn btn-wide ${loggedIn ? "" : "btn-disable"}`}>Shuffle</button>
+                <button type="submit" className= {`btn btn-wide ${loggedIn ? "" : "btn-disable"}`} style={spotifyButtonStyle}>
+                  Shuffle
+                </button>
               </form>
             </div>
           </div>
