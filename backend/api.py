@@ -17,8 +17,8 @@ CORS(app)  # Enable CORS for all routes
 def gentoken():
     # os.system('python3 token.py')
 
-    CLIENT_ID = '00e6e8d966ab46ad99b29b92ea700493'
-    CLIENT_SECRET = '61242f5865e94e248ffaf98de29c7530'
+    CLIENT_ID = '2f16ee221f7640999e071fd4898da655'
+    CLIENT_SECRET = 'b5c4f2e1e2bf41e09b6567f55974881b'
     REDIRECT_URI = 'http://localhost:5000/callback'
 
     AUTH_URL = 'https://accounts.spotify.com/api/token'
