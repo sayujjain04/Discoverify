@@ -113,6 +113,18 @@ export default function Home() {
     textShadow: '0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.5), 0 0 30px rgba(0, 255, 0, 0.5)',
   };
 
+  const purpleTextStyle: React.CSSProperties = {
+    fontFamily: 'Arial, sans-serif',
+    color: 'transparent', // Set a visible color for the text
+    textTransform: 'uppercase',
+    fontSize: '4em',
+    letterSpacing: '5px',
+    WebkitBackgroundClip: 'text',
+    backgroundClip: 'text',
+    animation: 'neon 0.5s ease-in-out infinite',
+    textShadow: '0 0 2px rgba(148, 0, 211, 0.9), 0 0 2.5px rgba(148, 0, 211, 0.9), 0 0 3px rgba(148, 0, 211, 0.9)',
+  };
+
   const formStyle: React.CSSProperties = {
     backgroundColor: 'rgb(30 41 59)', 
     padding: '20px',
@@ -131,19 +143,12 @@ export default function Home() {
     animation: 'neon 1s ease-in-out infinite, flash 1s linear infinite',
   };
   
-  const spotifyIconStyle: React.CSSProperties = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  };
-  
   return (
       (
-          <div className="min-h-screen flex flex-col items-center bg-cover justify-center" style={{ backgroundImage: 'url(/gifone.gif) ', 
+          <div className="min-h-screen flex flex-col items-center bg-cover justify-center" style={{ backgroundImage: 'url(/coolbg.jpg) ', 
               backgroundRepeat: 'no-repeat', backgroundColor: 'black', minHeight: '100vh', backgroundPosition: 'center' }}>
             <div className="text-center mb-4">
-              <h1 style={neonTextStyle}>Discoverify</h1>
+              <h1 style={purpleTextStyle}>Discoverify</h1>
             </div>
             <div className="text-center mb-4">
                 <button type="submit" className= {`btn btn-wide ${loggedIn ? "" : "btn-disable"}`} style={spotifyButtonStyle} onClick={handleLogin}>
