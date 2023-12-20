@@ -1,5 +1,5 @@
 "use client"
-// import { Black_Han_Sans } from "next/font/google";
+import { Black_Han_Sans } from "next/font/google";
 import {useState} from "react";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
       },
       body: JSON.stringify(postData),
     };
-    
+
     fetch(apiUrlPost, requestOptions)
       .then(response => {
         if (!response.ok) {
@@ -113,19 +113,6 @@ export default function Home() {
     textShadow: '0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.5), 0 0 30px rgba(0, 255, 0, 0.5)',
   };
 
-  const darkGlowTextStyle: React.CSSProperties = {
-    fontFamily: 'Arial, sans-serif', 
-    color: 'transparent',
-    textTransform: 'uppercase',
-    fontSize: '5em',
-    letterSpacing: '5px',
-    background: 'linear-gradient(90deg, #000000, #000000)', // Change the color to dark black
-    WebkitBackgroundClip: 'text',
-    backgroundClip: 'text',
-    animation: 'neon 0.5s ease-in-out infinite',
-    textShadow: '0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 0, 0, 0.5)',
-  };
-
   const formStyle: React.CSSProperties = {
     backgroundColor: 'rgb(30 41 59)', 
     padding: '20px',
@@ -144,12 +131,19 @@ export default function Home() {
     animation: 'neon 1s ease-in-out infinite, flash 1s linear infinite',
   };
   
+  const spotifyIconStyle: React.CSSProperties = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  };
+  
   return (
       (
-          <div className="min-h-screen flex flex-col items-center bg-cover justify-center" style={{ backgroundImage: 'url(/circles.jpg) ', 
-              backgroundColor: 'black', backgroundPosition: 'center' }}>
+          <div className="min-h-screen flex flex-col items-center bg-cover justify-center" style={{ backgroundImage: 'url(/gifone.gif) ', 
+              backgroundRepeat: 'no-repeat', backgroundColor: 'black', minHeight: '100vh', backgroundPosition: 'center' }}>
             <div className="text-center mb-4">
-              <h1 style={darkGlowTextStyle}>Discoverify</h1>
+              <h1 style={neonTextStyle}>Discoverify</h1>
             </div>
             <div className="text-center mb-4">
                 <button type="submit" className= {`btn btn-wide ${loggedIn ? "" : "btn-disable"}`} style={spotifyButtonStyle} onClick={handleLogin}>
