@@ -20,17 +20,24 @@ functionality: Using the application, a user can log into their Spotify account 
   Install the following:
   - Python : https://realpython.com/installing-python/
   - Pip : https://pip.pypa.io/en/stable/installation/
-  - Flask : pip install flask
-  - Npm : npm install
-
+  - Flask : open a terminal window and type "pip install flask"
+  - Npm : open a terminal window and type "npm install"
+    
 # To run the app:
+  Please note that to be able to use the site for its intended functionality, you need to have a spotify developer account and the playlist uploaded cannot be more than 100 songs.
+  
   For the frontend
-  - change directory to the frontend
+  - change directories until you are in group-project-team62\Frontend
   - Run this in the terminal : npm run dev
+  - You should be able to see the website by going to "localhost:3000" on the search engine of your choice 
 
   For the backend
-  - change the directory to backend (in a new terminal on VSCode)
+  - change directories until you are in group-project-team62\backend in a new terminal on VSCode
+    
+  If you are on Mac:
   - run this in the terminal: export FLASK_APP=api.py
   - then run this on the terminal: flask run --host=0.0.0.0 --port=5000
-
-To run the code, you need to have a spotify developer account and the playlist uploaded cannot be more than 100 songs.
+    
+  If you are on Windows:
+  - run this in the terminal: [System.Environment]::SetEnvironmentVariable("FLASK_APP", "api.py", [System.EnvironmentVariableTarget]::User)
+  - then run this on the terminal: flask run --host=0.0.0.0 --port=5000
