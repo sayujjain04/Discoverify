@@ -114,15 +114,16 @@ export default function Home() {
   };
 
   const purpleTextStyle: React.CSSProperties = {
-    fontFamily: 'Arial, sans-serif',
-    color: 'transparent', // Set a visible color for the text
+    fontFamily: 'Arial, sans-serif', 
+    color: 'transparent',
     textTransform: 'uppercase',
     fontSize: '4em',
     letterSpacing: '5px',
+    background: 'linear-gradient(90deg, #ffffff, #ffffff)', // Change the color to white
     WebkitBackgroundClip: 'text',
     backgroundClip: 'text',
     animation: 'neon 0.5s ease-in-out infinite',
-    textShadow: '0 0 2px rgba(148, 0, 211, 0.9), 0 0 2.5px rgba(148, 0, 211, 0.9), 0 0 3px rgba(148, 0, 211, 0.9)',
+    textShadow: '0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.5)',
   };
 
   const formStyle: React.CSSProperties = {
