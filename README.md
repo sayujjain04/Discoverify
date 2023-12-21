@@ -8,12 +8,6 @@ functionality: Using the application, a user can log into their Spotify account 
 
 # Technical Architecture
 ![image](https://github.com/CS222-UIUC-FA23/group-project-team62/assets/116621881/f96ff6c8-2d24-476b-8e1c-c4aa25bacd21)
-
-# Developers
-  - Arshiya Gupta: Backend
-  - Sharayu Janga : Backend
-  - Akhil Iyer: Frontend
-  - Sayuj Jain: Frontend
   
 # Environment Setup
 
